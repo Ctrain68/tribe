@@ -13,9 +13,7 @@ to the individual one.
 
 There will be a penalty system and ideally this will be based on the agreements with the people holding
 the others accountable. However in the future we shall explore other ways to help leverage people's own
-bias and dislikes to achieve the changes they are looking for. (an example of this 
-is an automatic payment set up to donate money to your most despised political party/organisation for every time you fail
-to meet the targets you set yourelf.)
+bias and dislikes to achieve the changes they are looking for. 
 
 
 
