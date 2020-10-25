@@ -59,20 +59,24 @@ or a null for no submission which will also be a negative.
 
 ### Dependancies
 
-Clone the repository from this github.
 
-Create a Python3.8 virtual environment and activiate
+Create a new directory and cd into it
+* Clone git repo
+* If not running python 3.8, run the following bash commands
 
-In your console run the following:
-
-```bash
-python3.8 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-
-python3.8 main.py
-```
-
+* sudo apt update
+* sudo apt install python3.8
+* Create a virtual enviornment
+* sudo apt-get install python3-pip
+* sudo apt-get install python3-venv
+* python3 -m venv venv
+* source venv/bin/activate
+* Install the modules in requirements.txt
+* cd into folder
+* pip install -r requirements.txt
+* Run the Program
+* cd src
+* python main.py
 
 ## CI/CD
 
