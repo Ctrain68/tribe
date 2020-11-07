@@ -54,6 +54,17 @@ from the "tribe" for feedback or encouragement etc.
 The last dashboard will be the approval of the submissions which will be positive/negative
 or a null for no submission which will also be a negative.
 
+## Database Design
+
+### Database ERD Scehma Draft v 1.0
+
+![Database ERD](docs/database_design/Accountability.png)
+
+The database schema is in its first draft showing the table relationships. There is a pretty consistent flow of the table relationships with the main significant connection being the many to many relationship between the tribes and the users. As I look into the future I shall be looking to implement a group setting for people. At this stage the option of a tracker to be public is the work around and others to be able to join in.
+
+At this stage I shall be creating the user table and implementing the CRUD resources around it.
+
+
 
 ## Installation
 
