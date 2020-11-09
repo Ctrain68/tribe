@@ -64,7 +64,11 @@ The database schema is in its first draft showing the table relationships. There
 
 At this stage I shall be creating the user table and implementing the CRUD resources around it.
 
+## Endpoints
 
+Copy the contents of the file swagger.yml. Navigate to https://editor.swagger.io/#
+
+remove the contents that has been populated and past the new data. This will show the endpoints that are there currently. 
 
 ## Installation
 
