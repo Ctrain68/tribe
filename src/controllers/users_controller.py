@@ -17,6 +17,7 @@ def users_create():
     users_fields = user_schema.load(request.json)
 
     new_user = Users()
+    new_user.username = users_fields["username"]
     new_user.fname = users_fields["fname"]
     new_user.lname = users_fields["lname"]
     new_user.userpass = users_fields["userpass"]
