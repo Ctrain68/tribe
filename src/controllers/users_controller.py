@@ -31,16 +31,16 @@ def users_create():
     
     return jsonify(user_schema.dump(new_user))
 
-@users.route("/<email>", methods=["GET"])
-def users_show(email):
+@users.route("/<string:username>", methods=["GET"])
+def users_show(username):
     #Return a single user
-    user = Users.query.filter_by(email = email).first()
+    user = Users.query.filter_by(username = username).first()
     return jsonify(user_schema.dump(user))
 
-@users.route("/<int:userid>", methods=["PUT", "PATCH"])
-def user_update(userid):
+@users.route("/<string:username>", methods=["PUT", "PATCH"])
+def user_update(username):
     #Update a user
-    user = Users.query.filter_by(userid=userid)
+    user = Users.query.filter_by(username = username)
     users_fields = user_schema.load(request.json)
     user.update(users_fields)
 
@@ -52,7 +52,7 @@ def user_update(userid):
 @users.route("/<int:userid>", methods=["DELETE"])
 def user_delete(userid):
     #Delete a User
-    users = Users.query.get(userid = userid)
+    users = Users.query.get(userid)
     db.session.delete(users)
     db.session.commit()
 
