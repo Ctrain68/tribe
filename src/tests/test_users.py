@@ -1,5 +1,6 @@
 import unittest
 from main import create_app, db
+from models.Users import Users
 
 class TestUsers(unittest.TestCase):
     @classmethod
@@ -28,3 +29,69 @@ class TestUsers(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(data, list)
+
+    def test_book_create(self):
+        response = self.client.post("/users/", json=  {
+            "account_active": "False",
+            "email": "Test Email",
+            "fname": "Test Fname",
+            "lname": "Test Lname",
+            "profile_pic": "Test Pic",
+            "username": "Test_username",
+            "userpass": "Test_Pass",
+            })
+
+        data = response.get_json()
+
+        #self.assertEqual(response.status_code, 200)
+        self.assertTrue(bool(response.status_code >= 200 and response.status_code < 300))
+        self.assertIsInstance(data, dict)
+        self.assertTrue(bool("userid" in data.keys()))
+
+        user = Users.query.get(data["userid"])
+        self.assertIsNotNone(user)
+
+    # def test_user_update(self):
+    #     response = self.client.post("/users/", json=  {
+    #         "account_active": "False",
+    #         "email": "Test Email2",
+    #         "fname": "Test Fname2",
+    #         "lname": "Test Lname2",
+    #         "profile_pic": "Test Pic2",
+    #         "username": "Test_username2",
+    #         "userpass": "Test_Pass2",
+    #         })
+
+        
+
+    #     responseput = self.client.put("/users/Test_username2", json=  {
+    #         "account_active": "False",
+    #         "email": "Updated",
+    #         "fname": "Updated",
+    #         "lname": "Updated",
+    #         "profile_pic": "Test Pic2",
+    #         "username": "Updated",
+    #         "userpass": "Test_Pass2",
+    #         }) 
+
+    #     data = responseput.get_json()
+
+    #     #self.assertEqual(response.status_code, 200)
+    #     self.assertTrue(bool(response.status_code >= 200 and response.status_code < 300))
+    #     self.assertIsInstance(data, dict)
+    #     self.assertTrue(bool("userid" in data.keys()))
+    #     self.assertEqual(data["username"] == username)
+
+    #     user = Users.query.get(data["userid"])
+    #     self.assertIsNotNone(user)
+
+    def test_book_delete(self):
+        user = Users.query.first()
+
+        response = self.client.delete(f"/users/{user.userid}")
+        data = response.get_json()
+
+        self.assertEqual(response.status_code, 200)
+
+        user = Users.query.get(user.userid)
+        self.assertIsNone(user)
