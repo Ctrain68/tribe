@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify, abort
 from schemas.UsersSchema import user_schema, users_schema
 from models.Users import Users
+from models.Accounts import Accounts
+from flask_jwt_extended import jwt_required
 from main import db
 
 users = Blueprint("users", __name__, url_prefix="/users")
@@ -12,6 +14,7 @@ def users_index():
    
 
 @users.route("/", methods=["POST"])
+@jwt_required
 def users_create():
     
     users_fields = user_schema.load(request.json)
@@ -20,10 +23,9 @@ def users_create():
     new_user.username = users_fields["username"]
     new_user.fname = users_fields["fname"]
     new_user.lname = users_fields["lname"]
-    new_user.userpass = users_fields["userpass"]
     new_user.profile_pic=users_fields["profile_pic"]
     new_user.account_active=users_fields["account_active"]
-    new_user.email= users_fields["email"]
+    
     
     
     db.session.add(new_user)

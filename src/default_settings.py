@@ -1,8 +1,10 @@
 import os
 from dotenv import load_dotenv
 
+
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JWT_SECRET_KEY = "duck"
 
     @property
     def SQLALCHEMY_DATABASE_URI(self):
@@ -10,18 +12,24 @@ class Config(object):
 
         if not value:
             raise ValueError("DB_URI is not set")
+
         return value
-        # DB_URI=postgresql+psycopg2://tribe_app:{os.getenv('db_pass')}@localhost:5432/tribe_api
-        
 
 class DevelopmentConfig(Config):
-    DEBUG= True 
+    DEBUG = True
 
 class ProductionConfig(Config):
-    pass
+    @property
+    def JWT_SECRET_KEY(self):
+        value = os.environ.get("JWT_SECRET_KEY")
+
+        if not value:
+            raise ValueError("JWT Secret Key is not set")
+        
+        return value
 
 class TestingConfig(Config):
-    TESTING = True 
+    TESTING = True
 
 environment = os.environ.get("FLASK_ENV")
 
