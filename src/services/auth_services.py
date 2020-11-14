@@ -6,13 +6,14 @@ from flask import abort
 def verify_user(function):
     @wraps(function)
     def wrapper(*args, **kwargs):
+        
         account_id = get_jwt_identity()
 
-        account = Acconts.query.get(account_id)
+        account = Accounts.query.get(account_id)
 
-        if not user:
+        if not account:
             return abort(401, description="Invalid user")
 
-        return function(*args, user=user, **kwargs)
+        return function(*args, account=account, **kwargs)
 
     return wrapper

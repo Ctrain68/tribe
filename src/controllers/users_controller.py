@@ -36,7 +36,6 @@ def users_create(account=None):
         new_user.username = users_fields["username"]
         new_user.fname = users_fields["fname"]
         new_user.lname = users_fields["lname"]
-        new_user.profile_pic=users_fields["profile_pic"]
         new_user.account_active=users_fields["account_active"]
         
         account.users.append(new_user)
@@ -104,3 +103,20 @@ def user_delete(username):
     db.session.commit()
 
     return jsonify(user_schema.dump(user))
+
+
+# @users.route("/<int:user_id>/image", methods=["POST"])
+# @jwt_required
+# def book_image_create(book_id):
+#     pass
+
+# @users.route("/<int:user_id>/image/", methods=["GET"])
+# def book_image_show(book_id, id):
+#     pass
+
+# @users.route("/<int:user_id>/image", methods=["DELETE"])
+# @jwt_required
+# def book_image_delete(book_id, id):
+#     pass
+
+
