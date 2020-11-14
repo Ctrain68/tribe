@@ -3,6 +3,7 @@ from schemas.UsersSchema import user_schema, users_schema
 from models.Users import Users
 from models.Accounts import Accounts
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from services.auth_services import verify_user
 from main import db
 
 users = Blueprint("users", __name__, url_prefix="/users")
@@ -15,15 +16,17 @@ def users_index():
 
 @users.route("/", methods=["POST"])
 @jwt_required
-def users_create():
+def users_create(account=None):
     
-    users_fields = user_schema.load(request.json)
+
     account_id = get_jwt_identity()
 
     account = Accounts.query.get(account_id)
 
     if not account:
         return abort(401, description="Account not found")
+    
+    users_fields = user_schema.load(request.json)
 
     user = Users.query.get(account_id)
 
@@ -57,7 +60,6 @@ def users_show(username):
 @jwt_required
 def user_update(username):
 
-    users_fields = user_schema.load(request.json)
     account_id = get_jwt_identity()
 
     account = Accounts.query.get(account_id)
@@ -65,8 +67,13 @@ def user_update(username):
     if not account:
         return abort(401, description="Account not found")
     #Update a user
-    user = Users.query.filter_by(username = username)
+
+    user = Users.query.filter_by(username = username, account_id=account.id)
+
     users_fields = user_schema.load(request.json)
+
+    if user.count() != 1:
+        return abort(401, description="Unauthorised to update this user")
     user.update(users_fields)
 
 
@@ -78,16 +85,22 @@ def user_update(username):
 @jwt_required
 def user_delete(username):
 
-    users_fields = user_schema.load(request.json)
     account_id = get_jwt_identity()
 
     account = Accounts.query.get(account_id)
 
     if not account:
         return abort(401, description="Account not found")
+
+    
     #Delete a User
-    users = Users.query.filter_by(username=username)
-    db.session.delete(users)
+    user = Users.query.filter_by(username = username, account_id=account.id).first()
+
+    # users_fields = user_schema.load(request.json)
+
+    if not user:
+        return abort(400)
+    db.session.delete(user)
     db.session.commit()
 
-    return jsonify(user_schema.dump(users))
+    return jsonify(user_schema.dump(user))
