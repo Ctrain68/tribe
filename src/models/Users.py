@@ -11,5 +11,6 @@ class Users(db.Model):
     account_active = db.Column(db.Boolean(), default = True)
     account_id = db.Column(db.Integer, db.ForeignKey("accounts.id"), nullable=False)
     
+    
     def __repr__(self):
         return f"<User {self.username}>"    
