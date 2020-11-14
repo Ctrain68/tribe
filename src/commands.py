@@ -30,7 +30,7 @@ def seed_db():
         account.password = bcrypt.generate_password_hash("123456").decode("utf-8")
         db.session.add(account)
         accounts.append(account)
-        
+    db.session.commit()
 
     for i in range(10):
         user = Users()
