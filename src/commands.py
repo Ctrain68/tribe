@@ -38,7 +38,7 @@ def seed_db():
         user.username = faker.name()
         user.fname = faker.first_name()
         user.lname = faker.last_name()
-        user.profile_pic=faker.text()
+        # user.profile_pic=faker.text()
         user.account_active=faker.boolean()
         user.account_id = i+1
         db.session.add(user)

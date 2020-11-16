@@ -9,7 +9,7 @@ class UsersSchema(ma.SQLAlchemyAutoSchema):
     username = ma.String(required=True, validate=Length(min=1))
     fname = ma.String(required=True, validate=Length(min=1))
     lname = ma.String(required=True, validate=Length(min=1))
-    profile_pic = ma.String(required=False)
+    # profile_pic = ma.String(required=False)
     account_active = ma.Boolean(required=True)
     account = ma.Nested(AccountsSchema)
 

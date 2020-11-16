@@ -1,5 +1,6 @@
 from main import db
 from sqlalchemy.orm import backref
+from models.Users import Users
 
 class Accounts(db.Model):
     __tablename__ = "accounts"

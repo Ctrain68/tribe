@@ -33,12 +33,9 @@ class TestUsers(unittest.TestCase):
     def test_book_create(self):
         response = self.client.post("/users/", json=  {
             "account_active": "False",
-            "email": "Test Email",
             "fname": "Test Fname",
             "lname": "Test Lname",
-            "profile_pic": "Test Pic",
-            "username": "Test_username",
-            "userpass": "Test_Pass",
+            "username": "Test_username"
             })
 
         data = response.get_json()

@@ -3,7 +3,7 @@ from functools import wraps
 from flask_jwt_extended import get_jwt_identity
 from flask import abort
 
-def verify_user(function):
+def verify_account(function):
     @wraps(function)
     def wrapper(*args, **kwargs):
         

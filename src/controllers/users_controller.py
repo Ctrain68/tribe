@@ -3,7 +3,7 @@ from schemas.UsersSchema import user_schema, users_schema
 from models.Users import Users
 from models.Accounts import Accounts
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from services.auth_services import verify_user
+from services.auth_services import verify_account
 from main import db
 
 users = Blueprint("users", __name__, url_prefix="/users")
@@ -16,15 +16,16 @@ def users_index():
 
 @users.route("/", methods=["POST"])
 @jwt_required
+@verify_account
 def users_create(account=None):
     
 
     account_id = get_jwt_identity()
 
-    account = Accounts.query.get(account_id)
+    # account = Accounts.query.get(account_id)
 
-    if not account:
-        return abort(401, description="Account not found")
+    # if not account:
+    #     return abort(401, description="Account not found")
     
     users_fields = user_schema.load(request.json)
 
@@ -57,14 +58,15 @@ def users_show(username):
 
 @users.route("/<string:username>", methods=["PUT", "PATCH"])
 @jwt_required
-def user_update(username):
+@verify_account
+def user_update(usernam, account=None):
 
-    account_id = get_jwt_identity()
+    # account_id = get_jwt_identity()
 
-    account = Accounts.query.get(account_id)
+    # account = Accounts.query.get(account_id)
 
-    if not account:
-        return abort(401, description="Account not found")
+    # if not account:
+    #     return abort(401, description="Account not found")
     #Update a user
 
     user = Users.query.filter_by(username = username, account_id=account.id)
@@ -82,14 +84,15 @@ def user_update(username):
 
 @users.route("/<string:username>", methods=["DELETE"])
 @jwt_required
-def user_delete(username):
+@verify_account
+def user_delete(username, account=None):
 
-    account_id = get_jwt_identity()
+    # account_id = get_jwt_identity()
 
-    account = Accounts.query.get(account_id)
+    # account = Accounts.query.get(account_id)
 
-    if not account:
-        return abort(401, description="Account not found")
+    # if not account:
+    #     return abort(401, description="Account not found")
 
     
     #Delete a User
@@ -105,18 +108,6 @@ def user_delete(username):
     return jsonify(user_schema.dump(user))
 
 
-# @users.route("/<int:user_id>/image", methods=["POST"])
-# @jwt_required
-# def book_image_create(book_id):
-#     pass
 
-# @users.route("/<int:user_id>/image/", methods=["GET"])
-# def book_image_show(book_id, id):
-#     pass
-
-# @users.route("/<int:user_id>/image", methods=["DELETE"])
-# @jwt_required
-# def book_image_delete(book_id, id):
-#     pass
 
 
