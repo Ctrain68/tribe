@@ -18,7 +18,7 @@ def profile_image_create(user_id, account = None):
     users = Users.query.filter_by(userid=user_id, account_id=account.id).first()
 
     if not users:
-        return abort(401, description="Invalid book")
+        return abort(401, description="Invalid user")
 
     # if users.count() != 1:
     #     return abort(401, description="Invalid User")
@@ -29,7 +29,7 @@ def profile_image_create(user_id, account = None):
     image = request.files["image"]
 
     if Path(image.filename).suffix not in [".png", ".tif", ".jpg", ".gif"]:
-        return abort(400, description="Invalid file type")
+        return abort(402, description="Invalid file type")
     
     filename = f"{user_id}{Path(image.filename).suffix}"
     bucket = boto3.resource("s3").Bucket(current_app.config["AWS_S3_BUCKET"])
@@ -43,7 +43,7 @@ def profile_image_create(user_id, account = None):
         users.profile_image = new_image
         db.session.commit()
     
-    return ("", 201)
+    return ("Ok", 201)
 
 @profile_images.route("/<int:id>", methods=["GET"])
 def profile_image_show(user_id, id):
@@ -64,6 +64,7 @@ def profile_image_show(user_id, id):
         headers={"Content-Disposition": "attachment;filename=image"}
     )
 
+
 @profile_images.route("/<int:id>", methods=["DELETE"])
 @jwt_required
 @verify_account
@@ -82,7 +83,7 @@ def profile_image_delete(user_id, id, account=None):
         db.session.delete(user.profile_image)
         db.session.commit()
 
-    return ("", 204)
+    return ("OK", 204)
 
 
 

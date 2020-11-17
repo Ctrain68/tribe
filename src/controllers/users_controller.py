@@ -101,7 +101,7 @@ def user_delete(username, account=None):
     # users_fields = user_schema.load(request.json)
 
     if not user:
-        return abort(400)
+        return abort(400, description="Unauthorised to delete user")
     db.session.delete(user)
     db.session.commit()
 

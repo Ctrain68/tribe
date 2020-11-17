@@ -1,0 +1,110 @@
+openapi: '3.0.2'
+info:
+  title: Tribe App
+  version: '1.0'
+
+paths:
+  /auth/register:
+    post:
+      tags: 
+      - "Account"
+      summary: "Register Account"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Account Already
+  /auth/login:
+    post:
+      tags: 
+      - "Account"
+      summary: "Login to Account"
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Incorrect username or password         
+
+  /users/:
+    get:
+      tags:
+      - "Users"
+      summary: "User Profile List"
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - "Users"
+      summary: "Create New User"
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: User Profile already exists
+  /user/username:
+    post:
+      tags:
+      - "Users"
+      summary: "Search for User by Username"  
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - "Users"
+      summary: "Update User by Username"  
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: "Unauthorised to update this user"
+    delete:
+      tags:
+      - "Users"
+      summary: "Delete User by Username"  
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Unauthorised to delete user
+  /users/user_id/image/:
+    post:
+      tags:
+      - Profile image
+      summary: Upload Profile Image
+      responses:
+        '201':
+          description: OK
+        '401':
+          description: Invalid Usern
+        '400':
+          description: Missing image
+        '402':
+          description: Invalid File Type 
+    get:
+      tags:
+      - Profile image
+      summary: Retrive Image
+      responses:
+        '201':
+          description: OK
+        '401':
+          description: Invalid User
+    delete:
+      tags:
+      - Profile image
+      summary: Delete Profile Image
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Invalid User
+
+
+
+
+
+
+
+          

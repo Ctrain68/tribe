@@ -34,7 +34,7 @@ def auth_login():
     account = Accounts.query.filter_by(email=account_fields["email"]).first()
 
     if not account or not bcrypt.check_password_hash(account.password, account_fields["password"]):
-        return abort(401, description="Incorrect username and password")
+        return abort(401, description="Incorrect username or password")
 
     expiry = timedelta(days=1)
     access_token = create_access_token(identity=str(account.id), expires_delta=expiry)
