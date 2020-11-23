@@ -7,7 +7,7 @@ paths:
   /auth/register:
     post:
       tags: 
-      - "Account"
+      - "User"
       summary: "Register Account"
       responses:
         '200':
@@ -17,42 +17,45 @@ paths:
   /auth/login:
     post:
       tags: 
-      - "Account"
+      - "User"
       summary: "Login to Account"
       responses:
         '200':
           description: OK
         '401':
-          description: Incorrect username or password         
+          description: Incorrect username or password
 
-  /users/:
+
+         
+
+  /profile/:
     get:
       tags:
-      - "Users"
+      - "Profile"
       summary: "User Profile List"
       responses:
         '200':
           description: OK
     post:
       tags:
-      - "Users"
+      - "Profile"
       summary: "Create New User"
       responses:
         '200':
           description: OK
         '401':
           description: User Profile already exists
-  /user/username:
+  /profile/username:
     post:
       tags:
-      - "Users"
+      - "Profile"
       summary: "Search for User by Username"  
       responses:
         '200':
           description: OK
     put:
       tags:
-      - "Users"
+      - "Profile"
       summary: "Update User by Username"  
       responses:
         '200':
@@ -61,14 +64,14 @@ paths:
           description: "Unauthorised to update this user"
     delete:
       tags:
-      - "Users"
+      - "Profile"
       summary: "Delete User by Username"  
       responses:
         '200':
           description: OK
         '400':
           description: Unauthorised to delete user
-  /users/user_id/image/:
+  /profile/profile_id/image/:
     post:
       tags:
       - Profile image
@@ -100,7 +103,147 @@ paths:
           description: OK
         '401':
           description: Invalid User
+  /profile/profile_id/tracker:
+    post:
+      tags:
+      - "Tracker"
+      summary: Create Goal or Target to tracker
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+    get:
+      tags:
+      - "Tracker"
+      summary: Retrive Goal or Target that is being tracked
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User     
+    put:
+      tags:
+      - "Tracker"
+      summary: Update Goal or Target that is being tracked
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User   
+    delete:
+      tags:
+      - "Tracker"
+      summary: Update Goal or Target that is being tracked
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User 
+  /tribe/:
+    get:
+      tags:
+      - "Tribe"
+      summary: Search for a Tribe
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+    post:
+      tags:
+      - "Tribe"
+      summary: Create a Tribe
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+    put:
+      tags:
+      - "Tribe"
+      summary: Update a Tribe
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+    delete:
+      tags:
+      - "Tribe"
+      summary: Delete a Tribe
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+  /tribe/public:
+    get:
+      tags:
+      - "Tribe"
+      summary: Returns all Public tribes
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
 
+  /user/tribe/:
+    get:
+      tags:
+      - "User/Tribe"
+      summary: returns all tribes with usersnames nested
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+
+  /user/tribe/tribename:
+    get:
+      tags:
+      - "User/Tribe"
+      summary: returns users for a specific tribe
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+    post:
+      tags:
+      - "User/Tribe"
+      summary: add user to a tribe, tribe must be public
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+    delete:
+      tags:
+      - "User/Tribe"
+      summary: returns users for a specific tribe
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+
+
+  /user/tribe/username:
+    get:
+      tags:
+      - "User/Tribe"
+      summary: Search for a Tribes by username
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Invalid User
+
+
+    
+
+           
 
 
 

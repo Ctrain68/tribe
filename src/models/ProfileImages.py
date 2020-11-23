@@ -5,7 +5,7 @@ class ProfileImages(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String())
-    user_id = db.Column(db.Integer, db.ForeignKey('users.userid'), nullable=False)
+    profile_id = db.Column(db.Integer, db.ForeignKey('profiles.profileid'), nullable=False)
 
     def __repr__(self):
         return f"<ProfileImage {self.id}"

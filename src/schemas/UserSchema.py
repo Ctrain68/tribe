@@ -1,14 +1,14 @@
 from main import ma
-from models.Accounts import Accounts
+from models.User import User
 from marshmallow.validate import Length
 
-class AccountsSchema(ma.SQLAlchemyAutoSchema):
+class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = Accounts
+        model = User
         load_only = ["password"]
     
     email = ma.String(required=True, validate=Length(min=4))
     password = ma.String(required=True, validate=Length(min=6))
 
-account_schema = AccountsSchema()
-accounts_schema = AccountsSchema(many=True)
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)
