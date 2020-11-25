@@ -16,9 +16,9 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object("default_settings.app_config")
 
-    if app.config["ENV"] == "production":
-        from log_handlers import file_handler
-        app.logger.addHandler(file_handler)
+    # if app.config["ENV"] == "production":
+    #     from log_handlers import file_handler
+    #     app.logger.addHandler(file_handler)
 
     # from database import init_db
     db.init_app(app)

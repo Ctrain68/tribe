@@ -144,7 +144,7 @@ paths:
     get:
       tags:
       - "Tribe"
-      summary: Search for a Tribe
+      summary: Search for a Tribe by tribe name
       responses:
         '201':
           description: OK
@@ -177,6 +177,16 @@ paths:
           description: OK
         '400':
           description: Invalid User
+  # /tribe/tribename:
+  #   get:
+  #     tags:
+  #     - "Tribe"
+  #     summary: Returns tribe by tribename
+  #     responses:
+  #       '201':
+  #         description: OK
+  #       '400':
+  #         description: Invalid User
   /tribe/public:
     get:
       tags:
