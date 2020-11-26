@@ -8,10 +8,10 @@ from main import db
 
 tribe = Blueprint("tribe", __name__, url_prefix="/tribe")
 
-@tribe.route("/<string:tribe_name>", methods=["GET"])
-def tribe_tribe_name():
-    tribes = Tribe.query.filter_by(tribe_name = tribe_name).first()
-    return jsonify(tribe_schema.dump(tribes))
+# @tribe.route("/<string:tribe_name>", methods=["GET"])
+# def tribe_tribe_name():
+#     tribes = Tribe.query.filter_by(tribe_name = tribe_name).first()
+#     return jsonify(tribe_schema.dump(tribes))
 
 @tribe.route("/", methods=["GET"])
 def tribe_index():
@@ -57,9 +57,12 @@ def tribe_create(user=None):
 @tribe.route("/<string:public>", methods=["GET"])
 
 def profile_show(public):
-    #Return a single user
-    tribe = Tribe.query.filter_by(public = public)
-    return jsonify(tribe_schema.dump(tribe))
+    query = db.session.query(Tribe)
+    query = query.filter(Tribe.public == True)
+    tribes = query.all()
+    return jsonify(tribes_schema.dump(tribes))
+    # tribe = Tribe.query.filter(Tribe.public.is(True)).all()
+    # return jsonify(tribes_schema.dump(tribe))
 
 # @profile.route("/<string:username>", methods=["PUT", "PATCH"])
 # @jwt_required
