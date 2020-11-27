@@ -56,39 +56,37 @@ def tribe_create(user=None):
 
 @tribe.route("/<string:public>", methods=["GET"])
 
-def profile_show(public):
+def tribe_show(public):
     query = db.session.query(Tribe)
     query = query.filter(Tribe.public == True)
     tribes = query.all()
     return jsonify(tribes_schema.dump(tribes))
-    # tribe = Tribe.query.filter(Tribe.public.is(True)).all()
-    # return jsonify(tribes_schema.dump(tribe))
 
-# @profile.route("/<string:username>", methods=["PUT", "PATCH"])
-# @jwt_required
-# @verify_user
-# def profile_update(username, user=None):
+@tribe.route("/<string:tribe_name>", methods=["PUT", "PATCH"])
+@jwt_required
+@verify_user
+def tribe_update(tribe_name, user=None):
 
-#     # account_id = get_jwt_identity()
+    # account_id = get_jwt_identity()
 
-#     # account = Accounts.query.get(account_id)
+    # account = Accounts.query.get(account_id)
 
-#     # if not account:
-#     #     return abort(401, description="Account not found")
-#     #Update a user
+    # if not account:
+    #     return abort(401, description="Account not found")
+    #Update a user
 
-#     profile = Profile.query.filter_by(username = username, user_id=user.id)
+    profile = Profile.query.filter_by(username = username, user_id=user.id)
 
-#     profile_fields = profile_schema.load(request.json)
+    profile_fields = profile_schema.load(request.json)
 
-#     if profile.count() != 1:
-#         return abort(401, description="Unauthorised to update this user")
-#     profile.update(profile_fields)
+    if profile.count() != 1:
+        return abort(401, description="Unauthorised to update this user")
+    profile.update(profile_fields)
 
 
-#     db.session.commit()
+    db.session.commit()
 
-#     return jsonify(profile_schema.dump(profile[0]))
+    return jsonify(profile_schema.dump(profile[0]))
 
 # @profile.route("/<string:username>", methods=["DELETE"])
 # @jwt_required
