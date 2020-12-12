@@ -67,26 +67,19 @@ def tribe_show(public):
 @verify_user
 def tribe_update(tribe_name, user=None):
 
-    # account_id = get_jwt_identity()
 
-    # account = Accounts.query.get(account_id)
+    tribe = Tribe.query.filter_by(tribe_name = tribe_name, user_id=user.id)
 
-    # if not account:
-    #     return abort(401, description="Account not found")
-    #Update a user
+    tribe_fields = tribe_schema.load(request.json)
 
-    profile = Profile.query.filter_by(username = username, user_id=user.id)
-
-    profile_fields = profile_schema.load(request.json)
-
-    if profile.count() != 1:
-        return abort(401, description="Unauthorised to update this user")
-    profile.update(profile_fields)
+    if tribe.count() != 1:
+        return abort(401, description="Unauthorised to update this Tribe")
+    tribe.update(tribe_fields)
 
 
     db.session.commit()
 
-    return jsonify(profile_schema.dump(profile[0]))
+    return jsonify(tribe_schema.dump(tribe[0]))
 
 # @profile.route("/<string:username>", methods=["DELETE"])
 # @jwt_required
