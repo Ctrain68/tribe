@@ -54,13 +54,7 @@ def tribe_create(user=None):
     # else:
     #     return abort(401, description='User Profile already exists')
 
-@tribe.route("/<string:public>", methods=["GET"])
-
-def tribe_show(public):
-    query = db.session.query(Tribe)
-    query = query.filter(Tribe.public == True)
-    tribes = query.all()
-    return jsonify(tribes_schema.dump(tribes))
+  
 
 @tribe.route("/<string:tribe_name>", methods=["PUT", "PATCH"])
 @jwt_required
